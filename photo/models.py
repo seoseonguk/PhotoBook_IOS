@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.urlresolvers import reverse
 from django.utils.text import slugify
 
 
@@ -19,6 +20,10 @@ class Photo(models.Model):
 
     def __str__(self):
         return "{} - {}".format(self.memory, self.id)
+
+    def get_absolute_url(self):
+        return reverse('photo:photo_detail', kwargs={'pk':self.pk})
+
 
 
 class Memory(models.Model):
