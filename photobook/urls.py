@@ -20,6 +20,7 @@ from django.contrib import admin
 
 
 urlpatterns = [
+    url(r'^api/', include('photobook.urls_api', namespace='api')),
     url(r'^admin/', admin.site.urls),
     url(r'^photo/', include('photo.urls', namespace='photo')),
 ]
