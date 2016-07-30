@@ -11,5 +11,5 @@ urlpatterns = [
     url(r'^(?P<pk>\d+)/update/$', PhotoUpdateView.as_view(), name='photo_update'),
     url(r'^(?P<pk>\d+)/delete/$', PhotoDeleteView.as_view(), name='photo_delete'),
 
-
 ]
+

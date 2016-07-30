@@ -5,11 +5,12 @@ from rest_framework import routers
 from rest_framework_jwt.views import obtain_jwt_token
 
 
-from photo.serializers import PhotoViewSet
+from photo.serializers import PhotoViewSet, MemoryViewSet
 
 router = routers.DefaultRouter()
 
 router.register(r"photos", PhotoViewSet)
+router.register(r"memories", MemoryViewSet)
 
 
 urlpatterns = [
