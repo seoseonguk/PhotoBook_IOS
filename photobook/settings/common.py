@@ -44,7 +44,7 @@ INSTALLED_APPS = [
 
     # local app
 	'photo',
-
+    'users',
 ]
 
 MIDDLEWARE_CLASSES = [
