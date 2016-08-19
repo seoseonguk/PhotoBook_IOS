@@ -48,6 +48,7 @@ class PhotoDetailAPIView(mixins.DestroyModelMixin, mixins.UpdateModelMixin, gene
     permission_classes = [permissions.IsAuthenticated, ]
 
     def get_object(self):
+        print (self.request.META)
         moment_pk = self.kwargs['moment_pk']
         photo_pk = self.kwargs['photo_pk']
         obj = get_object_or_404(Photo, moment__pk = moment_pk, pk=photo_pk)

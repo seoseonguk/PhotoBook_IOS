@@ -136,7 +136,9 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static_in_pro"),]
+    os.path.join(BASE_DIR, "static_in_pro"),
+
+]
 
 # AWS_FILE_EXPIRE = 200
 # AWS_PRELOAD_METADATA = True
@@ -164,3 +166,25 @@ STATICFILES_DIRS = [
 #     'Expires': expires,
 #     'Cache-Control': 'max-age=%d' % (int(two_months.total_seconds()), ),
 # }
+
+import datetime
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+        #이게 Default
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+    ),
+}
+
+JWT_AUTH = {
+    'JWT_RESPONSE_PAYLOAD_HANDLER':
+        'photobook.utils.jwt_response_payload_handler',
+    'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(seconds=300000),
+}
+
+
