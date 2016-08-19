@@ -26,6 +26,7 @@ from .serializers import (
 from users.models import Group
 
 class PhotoLikedAPIView(mixins.UpdateModelMixin, generics.RetrieveAPIView):
+    authentication_classess = [JSONWebTokenAuthentication]
     queryset = Photo.objects.all()
     serializer_class = PhotoLikedSerializer
     permission_classes = [permissions.IsAuthenticated, ]
@@ -43,6 +44,7 @@ class PhotoLikedAPIView(mixins.UpdateModelMixin, generics.RetrieveAPIView):
 
 
 class PhotoDetailAPIView(mixins.DestroyModelMixin, mixins.UpdateModelMixin, generics.RetrieveAPIView):
+    authentication_classess = [JSONWebTokenAuthentication]
     queryset = Photo.objects.all()
     serializer_class = PhotoSerializer
     permission_classes = [permissions.IsAuthenticated, ]
@@ -62,6 +64,8 @@ class PhotoDetailAPIView(mixins.DestroyModelMixin, mixins.UpdateModelMixin, gene
 
 
 class PhotoListCreateAPIView(generics.ListCreateAPIView):
+    authentication_classess = [JSONWebTokenAuthentication]
+    permission_classes = [permissions.IsAuthenticated,]
     queryset = Photo.objects.all()
     serializer_class = PhotoCreateSerializer
 
@@ -86,7 +90,7 @@ class PhotoListCreateAPIView(generics.ListCreateAPIView):
 
 
 class PhotoListAPIView(generics.ListAPIView):
-    authentication_classess = [SessionAuthentication, BasicAuthentication, JSONWebTokenAuthentication]
+    authentication_classess = [JSONWebTokenAuthentication]
     queryset = Photo.objects.all()
     serializer_class = PhotoSerializer
     permission_classess = [permissions.IsAuthenticated,]
@@ -98,11 +102,14 @@ class PhotoListAPIView(generics.ListAPIView):
         return obj_list
 
 class MomentCreateAPIView(generics.CreateAPIView):
+    authentication_classess = [JSONWebTokenAuthentication]
     serializer_class = MomentCreateSerializer
+    permission_classes = [permissions.IsAuthenticated,]
+
 
 
 class MomentListAPIView(generics.ListAPIView):
-    authentication_classess = [SessionAuthentication, BasicAuthentication, JSONWebTokenAuthentication]
+    authentication_classess = [JSONWebTokenAuthentication]
     queryset = Moment.objects.all()
     serializer_class = MomentSerializer
     permission_classes = [permissions.IsAuthenticated,]
