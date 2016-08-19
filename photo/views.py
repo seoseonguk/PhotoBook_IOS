@@ -5,7 +5,8 @@ from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 
-from rest_framework import generics, mixins, permissions
+from rest_framework import generics, mixins, permissions, status
+from rest_framework.response import Response
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 
@@ -18,6 +19,9 @@ from .serializers import (
     PhotoLikedSerializer,
     MomentSerializer,
     MomentCreateSerializer)
+
+
+from users.models import Group
 
 class PhotoLikedAPIView(mixins.UpdateModelMixin, generics.RetrieveAPIView):
     queryset = Photo.objects.all()
@@ -53,10 +57,26 @@ class PhotoDetailAPIView(mixins.DestroyModelMixin, mixins.UpdateModelMixin, gene
     def delete(self, request, *args, **kwargs):
         return self.destroy(request, *args, **kwargs)
 
+
 class PhotoListCreateAPIView(generics.ListCreateAPIView):
     queryset = Photo.objects.all()
     serializer_class = PhotoCreateSerializer
 
+    def create(self, request, *args, **kwargs):
+        print (request.data)
+        taken_at = request.data['taken_at']
+        print(taken_at)
+        group = get_object_or_404(Group, pk=kwargs['group_pk'])
+        moment = Moment.objects.get_or_create(group=group, taken_at=taken_at)[0]
+        photo = Photo.objects.create(
+                owner=request.user.user_model,
+                image=request.data['image'],
+                moment=moment,
+                taken_at=taken_at,
+            )
+        # photo_serializer = PhotoSerializer(data=photo)
+        # photo_serializer.is_valid(raise_exception=True)
+        return Response(status=status.HTTP_201_CREATED)
 
 
 class PhotoListAPIView(generics.ListAPIView):

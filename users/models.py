@@ -2,7 +2,7 @@ from django.conf import settings
 from django.db import models
 
 class User(models.Model):
-    auth_user = models.OneToOneField(settings.AUTH_USER_MODEL)
+    auth_user = models.OneToOneField(settings.AUTH_USER_MODEL, related_name='user_model')
 
     def __str__(self):
         return self.auth_user.username
