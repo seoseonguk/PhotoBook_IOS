@@ -29,7 +29,6 @@ class PhotoLikedAPIView(mixins.UpdateModelMixin, generics.RetrieveAPIView):
     authentication_classess = [JSONWebTokenAuthentication]
     queryset = Photo.objects.all()
     serializer_class = PhotoLikedSerializer
-    permission_classes = [permissions.IsAuthenticated, ]
 
     def get_object(self):
         print (self.kwargs)
@@ -47,7 +46,6 @@ class PhotoDetailAPIView(mixins.DestroyModelMixin, mixins.UpdateModelMixin, gene
     authentication_classess = [JSONWebTokenAuthentication]
     queryset = Photo.objects.all()
     serializer_class = PhotoSerializer
-    permission_classes = [permissions.IsAuthenticated, ]
 
     def get_object(self):
         print (self.request.META)
@@ -65,7 +63,6 @@ class PhotoDetailAPIView(mixins.DestroyModelMixin, mixins.UpdateModelMixin, gene
 
 class PhotoListCreateAPIView(generics.ListCreateAPIView):
     authentication_classess = [JSONWebTokenAuthentication]
-    permission_classes = [permissions.IsAuthenticated,]
     queryset = Photo.objects.all()
     serializer_class = PhotoCreateSerializer
 
@@ -93,7 +90,6 @@ class PhotoListAPIView(generics.ListAPIView):
     authentication_classess = [JSONWebTokenAuthentication]
     queryset = Photo.objects.all()
     serializer_class = PhotoSerializer
-    permission_classess = [permissions.IsAuthenticated,]
     pagenate_by = 10
 
     def get_queryset(self, *args, **kwargs):
@@ -104,7 +100,6 @@ class PhotoListAPIView(generics.ListAPIView):
 class MomentCreateAPIView(generics.CreateAPIView):
     authentication_classess = [JSONWebTokenAuthentication]
     serializer_class = MomentCreateSerializer
-    permission_classes = [permissions.IsAuthenticated,]
 
 
 
@@ -112,7 +107,6 @@ class MomentListAPIView(generics.ListAPIView):
     authentication_classess = [JSONWebTokenAuthentication]
     queryset = Moment.objects.all()
     serializer_class = MomentSerializer
-    permission_classes = [permissions.IsAuthenticated,]
     pagenate_by = 10
 
 
