@@ -23,6 +23,7 @@ urlpatterns = [
     url(r'^api/', include('photobook.urls_api', namespace='api')),
     url(r'^admin/', admin.site.urls),
     url(r'^photo/', include('photo.urls', namespace='photo')),
+    url(r'^users/', include('users.urls', namespace='users')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
