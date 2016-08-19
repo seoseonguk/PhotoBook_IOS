@@ -7,7 +7,8 @@ from .models import Group
 
 def group_list(request):
     qs = Group.objects.all()
-    return JsonResponse([post.as_dict() for post in qs], safe=False)
+    return qs
+    # JsonResponse([post.as_dict() for post in qs], safe=False)
     # a = request.user
     # qs = Group.objects.filter(user_list=a.id)
 

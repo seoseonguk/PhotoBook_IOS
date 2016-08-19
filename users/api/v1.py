@@ -2,12 +2,14 @@ from django.conf.urls import url
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 # from django.http import JsonResponse
-from users.models import Group
+from users.models import Group, User
 from users.forms import GroupForm
 
 
 def group_list(request):
-    return Group.objects.all()[:10]
+    user = request.user
+    qs = User.objects.get(pk=user.id).group_set.all()
+    return qs
     # return JsonResponse(qs)
     # return JsonResponse([post.as_dict() for post in qs], safe=False)
 
