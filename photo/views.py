@@ -11,8 +11,8 @@ from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 
 
 
-from .models import Photo, Memory
-from .serializers import PhotoSerializer, MemorySerializer
+from .models import Photo, Moment
+from .serializers import PhotoSerializer, MomentSerializer
 
 
 class PhotoDetailAPIView(generics.RetrieveAPIView):
@@ -24,15 +24,15 @@ class PhotoDetailAPIView(generics.RetrieveAPIView):
         print (self.kwargs)
         moment_pk = self.kwargs['moment_pk']
         photo_pk = self.kwargs['photo_pk']
-        obj = get_object_or_404(Photo, memory__pk = moment_pk, pk=photo_pk)
+        obj = get_object_or_404(Photo, moment__pk = moment_pk, pk=photo_pk)
         return obj
 
 
 
-class MemoryListAPIView(generics.ListAPIView):
+class MomentListAPIView(generics.ListAPIView):
     authentication_classess = [SessionAuthentication, BasicAuthentication, JSONWebTokenAuthentication]
-    queryset = Memory.objects.all()
-    serializer_class = MemorySerializer
+    queryset = Moment.objects.all()
+    serializer_class = MomentSerializer
     permission_classes = [permissions.IsAuthenticated,]
     pagenate_by = 10
 

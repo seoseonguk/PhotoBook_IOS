@@ -4,7 +4,7 @@ from django.conf.urls import url, include
 from rest_framework import routers
 from rest_framework_jwt.views import obtain_jwt_token
 
-from photo.views import PhotoListAPIView, MemoryListAPIView, PhotoDetailAPIView
+from photo.views import PhotoListAPIView, MomentListAPIView, PhotoDetailAPIView
 
 
 urlpatterns = [
@@ -32,9 +32,8 @@ urlpatterns = [
 
 
     # ----- 모멘트 관련 기능 ----
-    # # 전체 사진 리스트 호출 API ( 일자별로 사진을 묶어서 보내줘야한다. )
-    # '''
-    url(r'^group/(?P<group_pk>\d+)/moment/$', MemoryListAPIView.as_view(), name='moment_list_api'),
+    # 전체 사진 리스트뷰 로드 API
+    url(r'^group/(?P<group_pk>\d+)/moment/$', MomentListAPIView.as_view(), name='moment_list_api'),
     url(r'^group/(?P<group_pk>\d+)/moment/(?P<moment_pk>\d+)/$', PhotoListAPIView.as_view(), name='moment_detail_api'),
     # Moment 도 생성(뺄려고 했는데, 필요할 것 같아요)
     # url(r'^group/(?P<group_pk>\d+/moment/create/$)'),
