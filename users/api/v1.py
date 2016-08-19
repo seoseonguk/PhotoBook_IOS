@@ -30,3 +30,13 @@ urlpatterns = [
     url(r'^group/create/$', group_new),
 ]
 
+@require_POST
+@csrf_exempt
+def group_edit(request):
+    form = GroupForm(request.POST, request.FILES, initial={'name': json['name']})
+    if form.is_valid():
+        group = form.save()
+        return {'ok': True}
+    else:
+        return {'ok': False, 'errors': form.errors}
+
