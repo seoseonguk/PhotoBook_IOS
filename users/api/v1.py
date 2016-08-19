@@ -25,11 +25,6 @@ def group_new(request):
     return {'ok': False, 'errors': form.errors}
 
 
-urlpatterns = [
-    url(r'^group/$', group_list),
-    url(r'^group/create/$', group_new),
-]
-
 @require_POST
 @csrf_exempt
 def group_edit(request):
@@ -40,3 +35,9 @@ def group_edit(request):
     else:
         return {'ok': False, 'errors': form.errors}
 
+
+urlpatterns = [
+    url(r'^group/$', group_list),
+    url(r'^group/create/$', group_new),
+    url(r'^group/edit/$', group_edit),
+]
