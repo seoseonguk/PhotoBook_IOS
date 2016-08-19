@@ -4,7 +4,7 @@ from django.conf.urls import url, include
 from rest_framework import routers
 from rest_framework_jwt.views import obtain_jwt_token
 
-from photo.views import PhotoListAPIView, MomentListAPIView, PhotoDetailAPIView, MomentCreateAPIView
+from photo.views import PhotoListAPIView, MomentListAPIView, PhotoDetailAPIView, PhotoCreateAPIView, MomentCreateAPIView
 
 
 urlpatterns = [
@@ -42,11 +42,11 @@ urlpatterns = [
     url(r'^group/(?P<group_pk>\d+)/moment/(?P<moment_pk>\d+)/(?P<photo_pk>\d+)/$', PhotoDetailAPIView.as_view(), name='photo_detail_api'),
     # '''
     # # 사진 생성 url
-    # url(r'^group/(?P<group_pk>\d+)/moment/(?P<moment_pk\d+)/create/$', ),
+    url(r'^group/(?P<group_pk>\d+)/moment/(?P<moment_pk>\d+)/create/$', PhotoCreateAPIView.as_view(), name='photo_create_api'),
     # # 사진 좋아요 url
-    # url(r'^group/(?P<group_pk>\d+/moment/(?P<moment_pk\d+)/(?P<photo_pk>\d+)/like/$)'),
+    # url(r'^group/(?P<group_pk>\d+/moment/(?P<moment_pk>\d+)/(?P<photo_pk>\d+)/like/$)'),
     # # 사진 삭제 url
-    # url(r'^group/(?P<group_pk>\d+/moment/(?P<moment_pk\d+)/(?P<photo_pk>\d+)/delete/$)'),
+    # url(r'^group/(?P<group_pk>\d+/moment/(?P<moment_pk>\d+)/(?P<photo_pk>\d+)/delete/$)'),
     # '''
 
     url(r'^auth', include('rest_framework.urls', namespace='rest_framework')),

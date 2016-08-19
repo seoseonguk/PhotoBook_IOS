@@ -14,6 +14,7 @@ from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 from .models import Photo, Moment
 from .serializers import (
     PhotoSerializer,
+    PhotoCreateSerializer,
     MomentSerializer,
     MomentCreateSerializer)
 
@@ -30,8 +31,8 @@ class PhotoDetailAPIView(generics.RetrieveAPIView):
         obj = get_object_or_404(Photo, moment__pk = moment_pk, pk=photo_pk)
         return obj
 
-
-
+class PhotoCreateAPIView(generics.CreateAPIView):
+    serializer_class = PhotoCreateSerializer
 
 
 class PhotoListAPIView(generics.ListAPIView):

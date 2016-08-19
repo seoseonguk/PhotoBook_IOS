@@ -18,6 +18,16 @@ class PhotoUrlHyperlinkedIdentityField(serializers.HyperlinkedIdentityField):
         return reverse(view_name, kwargs=kwargs, request=request, format=format)
 
 
+class PhotoCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Photo
+        fields = [
+            'owner',
+            'image',
+            'moment',
+            'taken_at'
+        ]
+
 class PhotoSerializer(serializers.HyperlinkedModelSerializer):
     url = PhotoUrlHyperlinkedIdentityField('api:photo_detail_api')
 
