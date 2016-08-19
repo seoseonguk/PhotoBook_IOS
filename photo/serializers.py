@@ -17,6 +17,12 @@ class PhotoUrlHyperlinkedIdentityField(serializers.HyperlinkedIdentityField):
         }
         return reverse(view_name, kwargs=kwargs, request=request, format=format)
 
+class PhotoLikedSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Photo
+        fields = [
+            'liked'
+        ]
 
 class PhotoCreateSerializer(serializers.ModelSerializer):
     class Meta:
@@ -36,6 +42,7 @@ class PhotoSerializer(serializers.HyperlinkedModelSerializer):
         fields = [
             'url',
             'id',
+            'liked',
             'image',
             'taken_at',
             'created_at',

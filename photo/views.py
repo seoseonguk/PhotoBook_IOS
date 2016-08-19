@@ -15,13 +15,13 @@ from .models import Photo, Moment
 from .serializers import (
     PhotoSerializer,
     PhotoCreateSerializer,
+    PhotoLikedSerializer,
     MomentSerializer,
     MomentCreateSerializer)
 
-
-class PhotoDetailAPIView(generics.RetrieveAPIView):
+class PhotoLikedAPIView(mixins.UpdateModelMixin, generics.RetrieveAPIView):
     queryset = Photo.objects.all()
-    serializer_class = PhotoSerializer
+    serializer_class = PhotoLikedSerializer
     permission_classes = [permissions.IsAuthenticated, ]
 
     def get_object(self):
@@ -31,8 +31,32 @@ class PhotoDetailAPIView(generics.RetrieveAPIView):
         obj = get_object_or_404(Photo, moment__pk = moment_pk, pk=photo_pk)
         return obj
 
-class PhotoCreateAPIView(generics.CreateAPIView):
+    def put(self, request, *args, **kwargs):
+        print (self)
+        return self.update(request, *args, **kwargs)
+
+
+class PhotoDetailAPIView(mixins.DestroyModelMixin, mixins.UpdateModelMixin, generics.RetrieveAPIView):
+    queryset = Photo.objects.all()
+    serializer_class = PhotoSerializer
+    permission_classes = [permissions.IsAuthenticated, ]
+
+    def get_object(self):
+        moment_pk = self.kwargs['moment_pk']
+        photo_pk = self.kwargs['photo_pk']
+        obj = get_object_or_404(Photo, moment__pk = moment_pk, pk=photo_pk)
+        return obj
+
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
+
+    def delete(self, request, *args, **kwargs):
+        return self.destroy(request, *args, **kwargs)
+
+class PhotoListCreateAPIView(generics.ListCreateAPIView):
+    queryset = Photo.objects.all()
     serializer_class = PhotoCreateSerializer
+
 
 
 class PhotoListAPIView(generics.ListAPIView):
@@ -42,6 +66,10 @@ class PhotoListAPIView(generics.ListAPIView):
     permission_classess = [permissions.IsAuthenticated,]
     pagenate_by = 10
 
+    def get_queryset(self, *args, **kwargs):
+        print()
+        obj_list = Photo.objects.filter(moment__pk=self.kwargs['moment_pk'])
+        return obj_list
 
 class MomentCreateAPIView(generics.CreateAPIView):
     serializer_class = MomentCreateSerializer

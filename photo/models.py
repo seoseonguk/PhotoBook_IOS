@@ -16,6 +16,7 @@ def image_upload_to(instance, filename):
 
 
 class Photo(models.Model):
+    liked = models.BooleanField(default=0)
     owner = models.ForeignKey(User)
     image = models.ImageField(upload_to=image_upload_to)
     moment = models.ForeignKey('Moment')

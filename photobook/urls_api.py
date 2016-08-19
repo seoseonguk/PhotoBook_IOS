@@ -4,7 +4,7 @@ from django.conf.urls import url, include
 from rest_framework import routers
 from rest_framework_jwt.views import obtain_jwt_token
 
-from photo.views import PhotoListAPIView, MomentListAPIView, PhotoDetailAPIView, PhotoCreateAPIView, MomentCreateAPIView
+from photo.views import PhotoListAPIView, MomentListAPIView, PhotoDetailAPIView,PhotoLikedAPIView, PhotoListCreateAPIView, MomentCreateAPIView
 
 
 urlpatterns = [
@@ -41,13 +41,10 @@ urlpatterns = [
     # 사진 개별 detail view
     url(r'^group/(?P<group_pk>\d+)/moment/(?P<moment_pk>\d+)/(?P<photo_pk>\d+)/$', PhotoDetailAPIView.as_view(), name='photo_detail_api'),
     # '''
-    # # 사진 생성 url
-    url(r'^group/(?P<group_pk>\d+)/moment/(?P<moment_pk>\d+)/create/$', PhotoCreateAPIView.as_view(), name='photo_create_api'),
-    # # 사진 좋아요 url
-    # url(r'^group/(?P<group_pk>\d+/moment/(?P<moment_pk>\d+)/(?P<photo_pk>\d+)/like/$)'),
-    # # 사진 삭제 url
-    # url(r'^group/(?P<group_pk>\d+/moment/(?P<moment_pk>\d+)/(?P<photo_pk>\d+)/delete/$)'),
-    # '''
+    # # 사진 생성/삭제 url
+    url(r'^group/(?P<group_pk>\d+)/moment/(?P<moment_pk>\d+)/create/$', PhotoListCreateAPIView.as_view(), name='photo_create_api'),
+    # # 사진 좋아요 url (liked 에 대한 값을 True / False로 넘겨줘야 함.)
+    url(r'^group/(?P<group_pk>\d+/moment/(?P<moment_pk>\d+)/(?P<photo_pk>\d+)/like/$)', PhotoLikedAPIView.as_view(), name='photo_like_api'),
 
     url(r'^auth', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^auth/token/$', obtain_jwt_token),
