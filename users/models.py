@@ -27,7 +27,7 @@ class Group(models.Model):
         return {
             'id': self.id,
             'owner' : self.owner.id,
-            'user_list' : self.user_list.all().values('id'),
+            'user_list' : self.user_list.all(),
             'name' : self.name,
             'image_url' : self.image.url,
             'created_at' : self.created_at,

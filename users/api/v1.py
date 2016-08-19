@@ -2,12 +2,14 @@ from django.conf.urls import url
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 # from django.http import JsonResponse
-from users.models import Group
+from users.models import Group, User
 from users.forms import GroupForm
 
 
 def group_list(request):
-    return Group.objects.all()[:10]
+    user = request.user
+    qs = User.objects.get(pk=user.id).group_set.all()
+    return qs
     # return JsonResponse(qs)
     # return JsonResponse([post.as_dict() for post in qs], safe=False)
 
@@ -27,4 +29,14 @@ urlpatterns = [
     url(r'^group/$', group_list),
     url(r'^group/create/$', group_new),
 ]
+
+@require_POST
+@csrf_exempt
+def group_edit(request):
+    form = GroupForm(request.POST, request.FILES, initial={'name': json['name']})
+    if form.is_valid():
+        group = form.save()
+        return {'ok': True}
+    else:
+        return {'ok': False, 'errors': form.errors}
 
