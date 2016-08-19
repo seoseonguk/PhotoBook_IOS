@@ -11,19 +11,19 @@ class PhotoUrlHyperlinkedIdentityField(serializers.HyperlinkedIdentityField):
     def get_url(self, obj, view_name, request, format):
         kwargs = {
             'group_pk': obj.memory.group.pk,
-            'memory_pk': obj.memory.pk,
+            'moment_pk': obj.memory.pk,
             'photo_pk': obj.pk,
         }
         return reverse(view_name, kwargs=kwargs, request=request, format=format)
 
 
 class PhotoSerializer(serializers.HyperlinkedModelSerializer):
-    # url = PhotoUrlHyperlinkedIdentityField('photo_list_api')
+    url = PhotoUrlHyperlinkedIdentityField('api:photo_detail_api')
 
     class Meta:
         model = Photo
         fields = [
-            # 'url',
+            'url',
             'id',
             'image',
             # 'memory',

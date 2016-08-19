@@ -1,5 +1,5 @@
 from django.core.urlresolvers import reverse_lazy
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -15,15 +15,26 @@ from .models import Photo, Memory
 from .serializers import PhotoSerializer, MemorySerializer
 
 
+class PhotoDetailAPIView(generics.RetrieveAPIView):
+    queryset = Photo.objects.all()
+    serializer_class = PhotoSerializer
+    permission_classes = [permissions.IsAuthenticated, ]
+
+    def get_object(self):
+        print (self.kwargs)
+        moment_pk = self.kwargs['moment_pk']
+        photo_pk = self.kwargs['photo_pk']
+        obj = get_object_or_404(Photo, memory__pk = moment_pk, pk=photo_pk)
+        return obj
+
 
 
 class MemoryListAPIView(generics.ListAPIView):
     authentication_classess = [SessionAuthentication, BasicAuthentication, JSONWebTokenAuthentication]
     queryset = Memory.objects.all()
     serializer_class = MemorySerializer
-    permission_classess = [permissions.IsAuthenticated,]
+    permission_classes = [permissions.IsAuthenticated,]
     pagenate_by = 10
-
 
 
 class PhotoListAPIView(generics.ListAPIView):
@@ -32,7 +43,6 @@ class PhotoListAPIView(generics.ListAPIView):
     serializer_class = PhotoSerializer
     permission_classess = [permissions.IsAuthenticated,]
     pagenate_by = 10
-
 
 
 class PhotoListView(ListView):
