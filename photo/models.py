@@ -38,4 +38,4 @@ class Moment(models.Model):
 
 
     def __str__(self):
-        return self.title
+        return str(self.taken_at)

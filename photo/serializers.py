@@ -41,14 +41,13 @@ class MomentUrlHyperlinkedIdentityField(serializers.HyperlinkedIdentityField):
         return reverse(view_name, kwargs=kwargs, request=request, format=format)
 
 
-# class MomentCreateSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Moment
-#         fields = [
-#             '',
-#             '',
-#             '',
-#         ]
+class MomentCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Moment
+        fields = [
+            'group',
+            'taken_at',
+        ]
 
 
 class MomentSerializer(serializers.HyperlinkedModelSerializer):
