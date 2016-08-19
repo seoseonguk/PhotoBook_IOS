@@ -104,7 +104,6 @@ class MomentCreateAPIView(generics.CreateAPIView):
 
 
 class MomentListAPIView(generics.ListAPIView):
-    authentication_classess = [JSONWebTokenAuthentication]
     queryset = Moment.objects.all()
     serializer_class = MomentSerializer
     pagenate_by = 10
