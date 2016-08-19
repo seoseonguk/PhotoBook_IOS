@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import render, get_object_or_404
 from django.views.generic.detail import DetailView
@@ -66,8 +68,11 @@ class PhotoListCreateAPIView(generics.ListCreateAPIView):
         print (request.data)
         taken_at = request.data['taken_at']
         print(taken_at)
+        date = datetime.strptime(taken_at, "%Y-%m-%dT%H:%M").date()
+        print (date)
         group = get_object_or_404(Group, pk=kwargs['group_pk'])
-        moment = Moment.objects.get_or_create(group=group, taken_at=taken_at)[0]
+        moment = Moment.objects.get_or_create(group=group, taken_at=date)[0]
+        print (moment)
         photo = Photo.objects.create(
                 owner=request.user.user_model,
                 image=request.data['image'],

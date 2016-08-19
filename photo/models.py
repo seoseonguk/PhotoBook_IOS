@@ -34,7 +34,7 @@ class Moment(models.Model):
     group = models.ForeignKey(Group)
     title = models.CharField(max_length=120, blank=True, null=True)
     # image = models.ImageField(blank=True)
-    taken_at = models.DateTimeField(blank=True)
+    taken_at = models.DateField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
 
