@@ -26,7 +26,6 @@ class PhotoSerializer(serializers.HyperlinkedModelSerializer):
             'url',
             'id',
             'image',
-            # 'memory',
             'taken_at',
             'created_at',
         ]
@@ -43,12 +42,7 @@ class MemoryUrlHyperlinkedIdentityField(serializers.HyperlinkedIdentityField):
 
 class MemorySerializer(serializers.HyperlinkedModelSerializer):
     url = MemoryUrlHyperlinkedIdentityField('api:moment_detail_api')
-    # photo_list = serializers.SerializerMethodField(read_only=True)
-
-    # def get_photo_list(self, instance):
-    #     queryset = Photo.objects.filter(memory=instance)
-    #     serializer = PhotoSerializer(queryset, context={"request":instance}, many=True)
-    #     return serializer.data
+    photo_set = PhotoSerializer(many=True, read_only=True)
 
     class Meta:
         model = Memory
@@ -56,6 +50,6 @@ class MemorySerializer(serializers.HyperlinkedModelSerializer):
             'url',
             'id',
             'title',
-            # 'photo_list',
+            'photo_set',
             'taken_at',
         ]
