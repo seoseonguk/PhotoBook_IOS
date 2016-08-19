@@ -5,7 +5,25 @@ from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 
+from rest_framework import generics
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication
+from rest_framework import permissions
+from rest_framework_jwt.authentication import JSONWebTokenAuthentication
+
+
+
 from .models import Photo
+from .serializers import PhotoSerializer
+
+
+class PhotoListAPIView(generics.ListAPIView):
+    authentication_classess = [SessionAuthentication, BasicAuthentication, JSONWebTokenAuthentication]
+    queryset = Photo.objects.all()
+    serializer_class = PhotoSerializer
+    permission_classess = [permissions.IsAuthenticated,]
+    pagenate_by = 10
+
+
 
 class PhotoListView(ListView):
     model = Photo
