@@ -1,0 +1,1 @@
+from photobook.settings import common
