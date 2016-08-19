@@ -24,13 +24,15 @@ urlpatterns = [
     # # 전체 사진 리스트 호출 API ( 일자별로 사진을 묶어서 보내줘야한다. )
     # url(r'^group/(?P<group_pk>\d+)/$', name='photo_list_api'),
 
+    # Moment 도 생성(뺄려고 했는데, 필요할 것 같아요)
+    # url(r'^group/(?P<group_pk>\d+/image/create/$)'),
 
     # # 사진 생성 url
-    # url(r'^group/(?P<group_pk>\d+)/image/create/$', ),
+    # url(r'^group/(?P<group_pk>\d+)/image/(?P<moment_pk\d+)/create/$', ),
     # # 사진 좋아요 url
-    # url(r'^group/(?P<group_pk>\d+/image/(?P<moment_pk\d+)/like/$)'),
+    # url(r'^group/(?P<group_pk>\d+/image/(?P<moment_pk\d+)/(?P<photo_pk>\d+)/like/$)'),
     # # 사진 삭제 url
-    # url(r'^group/(?P<group_pk>\d+/image/(?P<moment_pk\d+)/delete/$)'),
+    # url(r'^group/(?P<group_pk>\d+/image/(?P<moment_pk\d+)/(?P<photo_pk>\d+)/delete/$)'),
 
 
     # 사진

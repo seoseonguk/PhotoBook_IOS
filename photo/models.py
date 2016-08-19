@@ -3,6 +3,9 @@ from django.core.urlresolvers import reverse
 from django.utils.text import slugify
 
 
+from users.models import User, Group
+
+
 
 def image_upload_to(instance, filename):
     title = instance.memory.title
@@ -23,7 +26,6 @@ class Photo(models.Model):
 
     def get_absolute_url(self):
         return reverse('photo:photo_detail', kwargs={'pk':self.pk})
-
 
 
 class Memory(models.Model):
