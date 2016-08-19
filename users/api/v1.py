@@ -7,8 +7,8 @@ from users.forms import GroupForm
 
 
 def group_list(request):
-    user = request.user
-    qs = Group.objects.filter(user_list=user.id)
+    user = request.GET["user"]
+    qs = Group.objects.filter(user_list__auth_user__username=user)
 
     return qs
     # return JsonResponse(qs)
@@ -38,7 +38,7 @@ def group_edit(request):
 
 
 urlpatterns = [
-    url(r'^group/$', group_list),
-    url(r'^group/create/$', group_new),
-    url(r'^group/edit/$', group_edit),
+    url(r'^$', group_list),
+    url(r'^create/$', group_new),
+    url(r'^edit/$', group_edit),
 ]

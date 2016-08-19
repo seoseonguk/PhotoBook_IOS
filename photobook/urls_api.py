@@ -30,7 +30,7 @@ urlpatterns = [
     # # 특정 그룹을 편집하는 API ( 그룹 이름, 메인 사진 바꾸는 것 )
     # url(r'^group/(?P<group_pk>\d+)/edit/$',,name='group_edit_api'),
 
-
+    url(r'^group/', include('users.api.v1')),
     # ----- 모멘트 관련 기능 ----
     # 전체 사진 리스트뷰 로드 API
     url(r'^group/(?P<group_pk>\d+)/moment/$', MomentListAPIView.as_view(), name='moment_list_api'),
