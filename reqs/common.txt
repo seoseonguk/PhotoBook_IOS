@@ -31,3 +31,4 @@ six==1.10.0
 texttable==0.8.4
 wcwidth==0.1.7
 websocket-client==0.37.0
+pillow
