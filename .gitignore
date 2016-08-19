@@ -2,5 +2,6 @@
 db.sqlite3
 */migrations
 */__pycache__
-/static
+	/static
 /media
+photobook/settings/dev.py
