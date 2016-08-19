@@ -16,6 +16,7 @@ def image_upload_to(instance, filename):
 
 
 class Photo(models.Model):
+    owner = models.ForeignKey(User)
     image = models.ImageField(upload_to=image_upload_to)
     memory = models.ForeignKey('Memory')
     taken_at = models.DateTimeField(blank=True)
@@ -29,8 +30,9 @@ class Photo(models.Model):
 
 
 class Memory(models.Model):
-    title = models.CharField(max_length=120)
-    image = models.ImageField(blank=True)
+    group = models.ForeignKey(Group)
+    title = models.CharField(max_length=120, blank=True, null=True)
+    # image = models.ImageField(blank=True)
     taken_at = models.DateTimeField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 

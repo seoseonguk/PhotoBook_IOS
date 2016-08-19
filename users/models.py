@@ -7,7 +7,7 @@ class User(models.Model):
     auth_user = models.OneToOneField(settings.AUTH_USER_MODEL)
 
     def __str__(self):
-        return self.auth_user
+        return self.auth_user.username
 
 
 class Group(models.Model):
